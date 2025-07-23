@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="studentApp">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularJS MVC Example</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input.ng-invalid.ng-dirty { border-color: red; }
+    input.ng-valid.ng-dirty { border-color: green; }
+  </style>
+</head>
+<body ng-controller="StudentController">
+
+  <h2>Student Registration Form</h2>
+
+  <form name="studentForm" novalidate>
+    <label>Name:</label><br>
+    <input type="text" name="name" ng-model="student.name" required />
+    <span ng-show="studentForm.name.$touched && studentForm.name.$invalid" style="color:red">
+      Name is required.
+    </span><br><br>
+
+    <label>Course:</label><br>
+    <input type="text" name="course" ng-model="student.course" required />
+    <span ng-show="studentForm.course.$touched && studentForm.course.$invalid" style="color:red">
+      Course is required.
+    </span><br><br>
+
+    <button type="submit" ng-disabled="studentForm.$invalid">Submit</button>
+  </form>
+
+  <hr>
+
+  <h3>Model Data (View)</h3>
+  <p><strong>Name:</strong> {{ student.name }}</p>
+  <p><strong>Course:</strong> {{ student.course }}</p>
+
+  <script>
+    // Module (App)
+    var app = angular.module("studentApp", []);
+
+    // Controller
+    app.controller("StudentController", function($scope) {
+      // Model
+      $scope.student = {
+        name: "",
+        course: ""
+      };
+    });
+  </script>
+
+</body>
+</html>
