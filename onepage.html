@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularJS MVC with Validation</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    .error { color: red; }
+    .success { color: green; }
+    form {
+      width: 300px;
+      padding: 20px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body ng-controller="FormController">
+
+  <h2>AngularJS MVC Example with Form Validation</h2>
+
+  <form name="userForm" ng-submit="submitForm()" novalidate>
+    <label>Name:</label><br>
+    <input type="text" name="name" ng-model="user.name" required />
+    <span class="error" ng-show="userForm.name.$touched && userForm.name.$invalid">Name is required.</span><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" name="email" ng-model="user.email" required />
+    <span class="error" ng-show="userForm.email.$touched && userForm.email.$invalid">Valid Email is required.</span><br><br>
+
+    <button type="submit" ng-disabled="userForm.$invalid">Submit</button>
+  </form>
+
+  <div class="success" ng-if="submitted">
+    <h3>Form Submitted Successfully!</h3>
+    <p><strong>Name:</strong> {{ user.name }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+  </div>
+
+  <script>
+    var app = angular.module('myApp', []);
+
+    app.controller('FormController', function($scope) {
+      $scope.user = {};
+      $scope.submitted = false;
+
+      $scope.submitForm = function() {
+        if ($scope.userForm.$valid) {
+          $scope.submitted = true;
+        }
+      };
+    });
+  </script>
+</body>
+</html>
